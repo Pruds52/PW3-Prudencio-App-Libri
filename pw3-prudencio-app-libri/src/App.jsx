@@ -1,12 +1,15 @@
 import "./App.css";
 import CardBooks from "./components/CardBooks";
+import capalivro from "./assets/livros/cavernas_aco.jpg" 
 
 function App() {
   return (
     <>
-      <CardBooks titulo = "Diário de um Banana" autor = "Jeff Kinney"/>
-      <CardBooks titulo = "O Mistério do Trem Fantasma" autor = "Thomas Brezina"/>
-      <CardBooks titulo = "O Pequeno Príncipe" autor = "Antoine de Saint-Exupéry"/>
+      <CardBooks 
+        titulo = "As Cavernas de Aço" 
+        autor = "Isaac Asimov" 
+        imagem= {capalivro}        
+      />
     </>
   );
 }
