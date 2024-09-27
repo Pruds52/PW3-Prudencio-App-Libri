@@ -6,6 +6,43 @@ import Select from "../forms/Select";
 import Button from "../forms/Button";
 
 const CreateBooks = () => {
+  const [categorias, setCategorias] = useState([]);
+
+  const [book, setBook] = useState({});
+
+  function handlerChangeBook(event) {
+    setBook({ ...book, [event.target.name]: event.target.value });
+    console.log(book);
+  }
+
+  function createBook(book) {
+        
+    console.log(JSON.stringify(book))
+
+    fetch('http://localhost:5000/inserirLivro', {
+            method:'POST',
+            mode:'cors',
+            headers:{
+            'Content-Type':'application/json',
+            'Access-Control-Allow-Origin':'*',
+            'Access-Control-Allow-Headers':'*'
+            },
+            body: JSON.stringify(book)
+    })
+    .then(
+            (resp)=>resp.json()
+    )
+    .then(
+            (data)=>{
+            console.log(data);
+            // navigate('/livros',{state:'LIVRO CADASTRADO COM SUCESSO!'});
+            }
+    )
+    .catch(
+            (err)=>{ console.log(err) }
+    )
+}
+
   useEffect(() => {
     fetch("http://localhost:5000/listagemCateorias", {
       method: "GET",
@@ -15,47 +52,57 @@ const CreateBooks = () => {
         "Access-Control-Allow-Headers": "*",
       },
     })
-      .then((resp) => 
+      .then((resp) =>
         // console.log("RESPOSTA: " + resp);
         resp.json()
       )
-      .then(
-        (data)=>
-          console.log("DATA: " + data.data[0].nome_categoria)
-        
-      ).catch((error) => {
+      .then((data) => setCategorias(data.data))
+      .catch((error) => {
         console.log(error);
       });
   }, []);
 
+  function submit(event) {
+    event.preventDefault();
+    createBook(book);
+  }
+
   return (
     <section className={style.create_book_container}>
       <h1>CREATE BOOKS</h1>
+      <form submit={submit}>
+        <Input
+          type="text"
+          name="nome_livro"
+          placeholder="Digite o nome do seu livro aqui"
+          text="Título do livro"
+          handlerChangeBook={handlerChangeBook}
+        />
 
-      <Input
-        type="text"
-        name="txt_livro"
-        placeholder="Digite o nome do seu livro aqui"
-        text="Título do livro"
-      />
+        <Input
+          type="text"
+          name="autor_livro"
+          placeholder="Digite o nome do autor"
+          text="Nome do autor"
+          handlerChangeBook={handlerChangeBook}
+        />
 
-      <Input
-        type="text"
-        name="txt_livro"
-        placeholder="Digite o nome do autor"
-        text="Nome do autor"
-      />
+        <Input
+          type="text"
+          name="descricao_livro"
+          placeholder="Digite a descrição do livro"
+          text="Descrição do livro"
+          handlerChangeBook={handlerChangeBook}
+        />
 
-      <Input
-        type="text"
-        name="txt_livro"
-        placeholder="Digite a descrição do livro"
-        text="Descrição do livro"
-      />
+        <Select
+          name="categoria"
+          text="Escolha uma categoria de livro"
+          options={categorias}
+        />
 
-      <Select name="categoria" text="Escolha uma categoria de livro" />
-
-      <Button rotulo="Cadastrar Livro" />
+        <Button rotulo="Cadastrar Livro" />
+      </form>
     </section>
   );
 };
