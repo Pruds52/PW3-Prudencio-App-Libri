@@ -8,7 +8,7 @@ function Select({ name, text, options, handlerChangeCategory }) {
         <option>Selecione uma categoria</option>
         {options.map((option) => {
           return (
-            <option value={option.cod_categoria}>
+            <option value={option.cod_categoria} key={option.cod_categoria}>
               {option.nome_categoria}
             </option>
           );
