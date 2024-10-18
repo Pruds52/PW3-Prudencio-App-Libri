@@ -15,6 +15,11 @@ const CreateBooks = () => {
     console.log(book);
   }
 
+  function handleChangeCategory(event) {
+    setBook({...book, cod_categoria: event.target.value});
+    console.log(book);
+}
+
   function createBook(book) {
         
     console.log(JSON.stringify(book))
@@ -99,6 +104,7 @@ const CreateBooks = () => {
           name="categoria"
           text="Escolha uma categoria de livro"
           options={categorias}
+          handlerChangeCategory={handleChangeCategory}
         />
 
         <Button rotulo="Cadastrar Livro" />
