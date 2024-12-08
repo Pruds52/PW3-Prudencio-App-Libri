@@ -6,6 +6,7 @@
     background-color: #DEDEDE;
     width: max-content;
     margin: 5px;
+    justify-content: center;
     padding: 5px;
     border: 1px solid #CCC;
     font-family: Helvetica;

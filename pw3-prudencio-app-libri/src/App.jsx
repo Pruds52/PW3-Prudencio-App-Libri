@@ -21,6 +21,8 @@ function App() {
               <Route path="/listBook" element={<ListBooks/>}/>
               <Route path="/createBook" element={<CreateBooks/>}/>
               <Route path="/detailBook/:cod_livro" element={<DetailBook/>}/>
+              <Route path='/deleteBook/:cod_livro' element={<DeleteBook/>}/>
+              <Route path='/updateBook/:cod_livro' element={<UpdateBooks/>}/>
             </Route>
 
           </Routes>
